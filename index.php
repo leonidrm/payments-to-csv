@@ -26,6 +26,4 @@ function readTerminalInput($prompt = '')
 
 $pathToFile = readTerminalInput('Provide path to CSV file (ex: payments.csv): ');
 
-$output = new OutputFormat(new Salary, new Bonus);
-
-$output->createCSV($pathToFile);
+(new OutputFormat(new Salary, new Bonus))->createCSV($pathToFile);
