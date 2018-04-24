@@ -1,7 +1,10 @@
 <?php
 namespace PaymentDay;
 
-
+/**
+ * Class PaymentDay
+ * @package PaymentDay
+ */
 abstract class PaymentDay
 {
     /**
@@ -14,12 +17,19 @@ abstract class PaymentDay
      */
     private $paymentDates;
 
+    /**
+     * @return int
+     */
     public function getPaymentDay()
     {
         return $this->paymentDay;
     }
 
-    public function getAdjustedPaymentDay(Calendar $calendar)
+    /**
+     * @param Calendar $calendar
+     * @return int
+     */
+    protected function getAdjustedPaymentDay(Calendar $calendar)
     {
         $dayOfWeek = $calendar->getDayOfWeek();
 
@@ -33,9 +43,20 @@ abstract class PaymentDay
         return $calendar->getDate();
     }
 
+    /**
+     * @return array
+     */
     public function getPaymentDates()
     {
         return $this->paymentDates;
+    }
+
+    /**
+     * @param int $day
+     */
+    protected function setPaymentDay(int $day)
+    {
+        $this->paymentDay = $day;
     }
 
     public function nextYearPaymentDates()
@@ -49,15 +70,6 @@ abstract class PaymentDay
             $calendar->setMonth($calendar->getMonth() + $month);
 
             $this->paymentDates[] = $this->getAdjustedPaymentDay($calendar);
-
-//          $calendarDates = $this->getAdjustedPaymentDay($calendar);
-//
-//          $this->paymentDates[$calendarDates['month']] = $calendarDates['day'];
         }
-    }
-
-    public function setPaymentDay(int $day)
-    {
-        $this->paymentDay = $day;
     }
 }

@@ -1,14 +1,22 @@
 <?php
 namespace PaymentDay;
 
-
+/**
+ * Class OutputFormat
+ * @package PaymentDay
+ */
 class OutputFormat
 {
     /**
      * @var array
      */
-    private $data;
+    protected $data;
 
+    /**
+     * OutputFormat constructor.
+     * @param Salary $salaryDates
+     * @param Bonus $bonusDates
+     */
     public function __construct(Salary $salaryDates, Bonus $bonusDates)
     {
         $salaryDates = $salaryDates->getPaymentDates();
@@ -18,12 +26,19 @@ class OutputFormat
         $this->sortData($salaryDates, $bonusDates);
     }
 
+    /**
+     * @return array
+     */
     public function getData()
     {
         return $this->data;
     }
 
-    public function sortData($salaryDates, $bonusDates)
+    /**
+     * @param $salaryDates
+     * @param $bonusDates
+     */
+    protected function sortData(array $salaryDates, array $bonusDates)
     {
         if(count($salaryDates) != count($bonusDates))
         {
@@ -36,6 +51,9 @@ class OutputFormat
         }
     }
 
+    /**
+     * @param string $path
+     */
     public function createCSV(string $path)
     {
         $data = $this->getData();
